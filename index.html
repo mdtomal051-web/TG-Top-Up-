@@ -3,106 +3,147 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TG Top Up </title>
+    <title>TG Top Up</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Hind Siliguri', sans-serif; }
-        body { background-color: #f8f9fa; padding-bottom: 80px; }
+        body { background-color: #f4f6f9; padding-bottom: 80px; color: #333; }
 
-        .header { background: white; padding: 10px 15px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
-        .logo img { height: 35px; }
-        .wallet-box { background: #003d82; color: white; padding: 5px 15px; border-radius: 20px; font-weight: bold; display: flex; align-items: center; gap: 5px; }
+        /* Header UI */
+        .header { background: white; padding: 12px 15px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.06); }
+        .logo img { height: 38px; }
+        .wallet-box { background: #003d82; color: white; padding: 6px 16px; border-radius: 20px; font-weight: bold; display: flex; align-items: center; gap: 6px; font-size: 14px; }
 
+        /* Pages View Control */
         #home-page, #buy-page, #manual-payment-page, #add-money-page, #orders-page, #profile-page { display: none; }
         #home-page { display: block; }
 
-        .notice-bar { background: #003d82; color: white; padding: 10px 15px; margin: 10px; border-radius: 4px; font-size: 13px; text-align: center; }
+        /* Notice Bar */
+        .notice-bar { background: #003d82; color: white; padding: 10px 15px; margin: 12px; border-radius: 6px; font-size: 13px; text-align: center; font-weight: 500; }
         
-        .banner-container { padding: 0 10px; margin-bottom: 20px; }
-        .swiper { width: 100%; height: 160px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        /* Banner Slider */
+        .banner-container { padding: 0 12px; margin-bottom: 20px; }
+        .swiper { width: 100%; height: 165px; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
         .swiper-slide img { width: 100%; height: 100%; object-fit: cover; }
         .swiper-pagination-bullet-active { background: #003d82 !important; }
 
-        .section-title { text-align: center; color: #003d82; font-size: 20px; font-weight: 600; margin: 15px 0; }
-        .product-grid { display: grid; gap: 10px; padding: 0 12px; margin-bottom: 25px; }
+        /* Grids & Cards */
+        .section-title { text-align: left; color: #003d82; font-size: 18px; font-weight: 700; margin: 15px 12px 10px; padding-left: 8px; border-left: 4px solid #003d82; }
+        .product-grid { display: grid; gap: 12px; padding: 0 12px; margin-bottom: 25px; }
         #special-grid, #ff-grid { grid-template-columns: repeat(3, 1fr); }
 
-        .product-card { background: white; border-radius: 10px; overflow: hidden; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.05); border: 1px solid #eee; cursor: pointer; }
+        .product-card { background: white; border-radius: 12px; overflow: hidden; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.04); border: 1px solid #eaeaea; cursor: pointer; transition: 0.2s; }
+        .product-card:active { transform: scale(0.97); }
         .product-card img { width: 100%; aspect-ratio: 1/1; object-fit: cover; }
-        .product-card p { padding: 8px 5px; font-size: 11px; font-weight: 600; }
+        .product-card p { padding: 8px 5px; font-size: 12px; font-weight: 600; color: #333; }
 
-        .support-container { background: #001f3f; color: white; padding: 30px 15px; text-align: center; margin-top: 30px; }
-        .support-title { font-size: 20px; font-weight: 700; margin-bottom: 20px; text-transform: uppercase; letter-spacing: 1px; }
-        .support-box { border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 12px; padding: 12px 15px; display: flex; align-items: center; margin-bottom: 15px; text-decoration: none; color: white; transition: 0.3s; }
-        .support-icon { width: 35px; height: 35px; margin-right: 15px; display: flex; align-items: center; justify-content: center; }
+        /* UC Ghor Style Buy Page Layout */
+        .buy-container { max-width: 600px; margin: 0 auto; background: white; min-height: 100vh; padding-bottom: 40px; }
+        .product-header { padding: 20px 15px; text-align: center; border-bottom: 1px solid #f0f2f5; position: relative; background: #fafafa; }
+        .back-btn { position: absolute; left: 15px; top: 22px; font-size: 22px; cursor: pointer; color: #003d82; }
+        .product-header img { width: 90px; height: 90px; border-radius: 15px; margin-bottom: 10px; object-fit: cover; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+        .product-header h2 { font-size: 20px; color: #003d82; font-weight: 700; }
+        
+        .input-section { padding: 20px 15px; }
+        
+        /* New Package Card Styling (UC Ghor Grid style) */
+        .package-title-tag { font-size: 15px; font-weight: 700; color: #003d82; margin-bottom: 12px; display: flex; align-items: center; gap: 5px; }
+        .package-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-bottom: 25px; }
+        .package-item { background: #fff; border: 1px solid #e0e0e0; padding: 15px 10px; border-radius: 10px; text-align: center; cursor: pointer; transition: 0.2s; box-shadow: 0 2px 5px rgba(0,0,0,0.02); }
+        .package-item b { font-size: 14px; color: #333; display: block; margin-bottom: 4px; }
+        .package-item p { font-size: 13px; color: #666; font-weight: 600; }
+        .package-item.active { border: 2px solid #003d82; background: #f0f6ff; }
+        .package-item.active b { color: #003d82; }
+        .package-item.active p { color: #003d82; font-weight: 700; }
+
+        /* Player ID moved down style */
+        .account-info-box { background: #f8fafc; padding: 15px; border-radius: 12px; border: 1px solid #e2e8f0; margin-bottom: 25px; }
+        .uid-input { width: 100%; padding: 14px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 16px; outline: none; transition: 0.2s; background: white; }
+        .uid-input:focus { border-color: #003d82; box-shadow: 0 0 0 3px rgba(0,61,130,0.1); }
+
+        /* Order Rules/Conditions Box */
+        .rules-panel { background: #fff5f5; border: 1px dashed #feb2b2; padding: 15px; border-radius: 10px; margin-bottom: 25px; }
+        .rules-panel h4 { color: #c53030; font-size: 14px; font-weight: 700; margin-bottom: 6px; display: flex; align-items: center; gap: 5px; }
+        .rules-panel ul { list-style-position: inside; font-size: 12px; color: #4a5568; line-height: 1.7; }
+
+        .buy-now-btn { width: 100%; background: #003d82; color: white; border: none; padding: 15px; border-radius: 10px; font-size: 16px; font-weight: bold; cursor: pointer; transition: 0.2s; box-shadow: 0 4px 12px rgba(0,61,130,0.2); }
+        .buy-now-btn:active { transform: scale(0.99); }
+
+        /* Support Center Block */
+        .support-container { background: #001f3f; color: white; padding: 25px 15px; text-align: center; margin-top: 30px; border-top: 4px solid #003d82; }
+        .support-title { font-size: 16px; font-weight: 700; margin-bottom: 15px; text-transform: uppercase; letter-spacing: 0.5px; color: #fff; }
+        .support-box { border: 1px solid rgba(255, 255, 255, 0.15); background: rgba(255,255,255,0.03); border-radius: 10px; padding: 12px 15px; display: flex; align-items: center; margin-bottom: 12px; text-decoration: none; color: white; transition: 0.2s; }
+        .support-icon { width: 30px; height: 30px; margin-right: 12px; display: flex; align-items: center; justify-content: center; }
         .support-icon img { width: 100%; height: 100%; object-fit: contain; }
         .support-info { text-align: left; }
-        .support-info h4 { font-size: 15px; margin-bottom: 2px; font-weight: 600; }
-        .support-info p { font-size: 12px; opacity: 0.8; }
-        .footer-credit { margin-top: 30px; font-size: 11px; opacity: 0.5; border-top: 1px solid rgba(255, 255, 255, 0.1); padding-top: 20px; line-height: 1.6; }
+        .support-info h4 { font-size: 14px; margin-bottom: 1px; font-weight: 600; }
+        .support-info p { font-size: 11px; opacity: 0.7; }
+        .footer-credit { margin-top: 25px; font-size: 11px; opacity: 0.4; border-top: 1px solid rgba(255, 255, 255, 0.08); padding-top: 15px; line-height: 1.6; }
 
-        .buy-container { max-width: 500px; margin: 0 auto; background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
-        .product-header { padding: 20px; text-align: center; border-bottom: 2px solid #f0f2f5; position: relative; }
-        .back-btn { position: absolute; left: 15px; top: 20px; font-size: 20px; cursor: pointer; color: #003d82; }
-        .product-header img { width: 100px; height: 100px; border-radius: 12px; margin-bottom: 10px; object-fit: cover; }
-        .input-section { padding: 20px; }
-        .uid-input { width: 100%; padding: 12px; border: 2px solid #eee; border-radius: 8px; font-size: 16px; margin-bottom: 20px; outline: none; }
-        .package-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 20px; }
-        .package-item { border: 2px solid #eee; padding: 12px; border-radius: 10px; text-align: center; cursor: pointer; font-size: 14px; }
-        .package-item.active { border-color: #003d82; background: #eef4ff; color: #003d82; font-weight: bold; }
-        .buy-now-btn { width: 100%; background: #003d82; color: white; border: none; padding: 15px; border-radius: 10px; font-size: 18px; font-weight: bold; cursor: pointer; }
-
-        .checkout-header { background: white; padding: 15px; display: flex; justify-content: space-between; align-items: center; border-radius: 5px; margin-bottom: 10px; font-weight: bold; font-size: 18px; }
+        /* General Checkout/Payment UI elements */
+        .checkout-header { background: white; padding: 15px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eee; font-weight: bold; font-size: 16px; color: #003d82; }
         .payment-card { color: white; border-radius: 15px; padding: 25px 20px; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
         .tr-id-box { background: white; border-radius: 8px; padding: 12px; margin: 20px 0; border: 1px solid rgba(0,0,0,0.1); }
         .tr-id-box input { width: 100%; border: none; outline: none; text-align: center; font-size: 18px; font-weight: bold; color: #333; }
         .instruction-list { text-align: left; font-size: 14px; list-style: none; margin-top: 20px; line-height: 1.8; opacity: 0.9; }
         .copy-btn { background: rgba(255,255,255,0.25); border: 1px solid white; color: white; padding: 3px 10px; border-radius: 5px; font-size: 11px; cursor: pointer; margin-left: 8px; font-weight: bold; }
-        .verify-btn { width: 100%; background: #cc0000; color: white; border: none; padding: 18px; border-radius: 10px; font-size: 18px; font-weight: 800; margin-top: 25px; cursor: pointer; box-shadow: 0 5px 15px rgba(204, 0, 0, 0.3); text-transform: uppercase; transition: 0.3s; }
+        .verify-btn { width: 100%; background: #cc0000; color: white; border: none; padding: 18px; border-radius: 10px; font-size: 17px; font-weight: 800; margin-top: 25px; cursor: pointer; box-shadow: 0 5px 15px rgba(204, 0, 0, 0.3); text-transform: uppercase; }
+        .verify-btn:disabled { background: #999 !important; box-shadow: none !important; cursor: not-allowed; }
 
-        .floating-support { position: fixed; bottom: 85px; right: 15px; display: flex; align-items: center; z-index: 9999; text-decoration: none; transition: 0.3s; }
-        .support-text { background: #e91e63; color: white; padding: 6px 15px; border-radius: 20px 0 0 20px; font-size: 13px; font-weight: bold; box-shadow: -2px 2px 5px rgba(0,0,0,0.1); }
-        .support-icon-btn { background: #e91e63; color: white; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 20px; border-left: 1px solid rgba(255,255,255,0.3); box-shadow: 2px 2px 5px rgba(0,0,0,0.1); }
+        /* Floating WhatsApp Button */
+        .floating-support { position: fixed; bottom: 85px; right: 15px; display: flex; align-items: center; z-index: 9999; text-decoration: none; }
+        .support-text { background: #e91e63; color: white; padding: 6px 15px; border-radius: 20px 0 0 20px; font-size: 12px; font-weight: bold; box-shadow: -2px 2px 5px rgba(0,0,0,0.1); }
+        .support-icon-btn { background: #e91e63; color: white; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 18px; box-shadow: 2px 2px 5px rgba(0,0,0,0.1); }
 
-        .profile-container { padding: 20px; text-align: center; }
-        .profile-header { background: white; padding: 30px 20px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); margin-bottom: 20px; }
-        .profile-avatar { width: 80px; height: 80px; background: #003d82; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 35px; margin: 0 auto 15px; font-weight: bold; }
-        .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 20px; }
-        .stat-card { background: white; padding: 15px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); text-align: center; }
-        .profile-menu { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
-        .menu-item { display: flex; align-items: center; padding: 15px; border-bottom: 1px solid #eee; text-decoration: none; color: #333; font-size: 14px; font-weight: 600; cursor: pointer; }
+        /* Profile & History */
+        .profile-container { padding: 15px; text-align: center; }
+        .profile-header { background: white; padding: 25px 15px; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.04); margin-bottom: 20px; }
+        .profile-avatar { width: 75px; height: 75px; background: #003d82; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 30px; margin: 0 auto 15px; font-weight: bold; }
+        .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px; }
+        .stat-card { background: white; padding: 15px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.03); text-align: center; }
+        .profile-menu { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.03); }
+        .menu-item { display: flex; align-items: center; padding: 15px; border-bottom: 1px solid #f5f5f5; text-decoration: none; color: #333; font-size: 14px; font-weight: 600; cursor: pointer; }
 
-        .bottom-nav { position: fixed; bottom: 0; width: 100%; background: white; display: flex; justify-content: space-around; padding: 10px 0; border-top: 1px solid #eee; z-index: 1000; box-shadow: 0 -2px 10px rgba(0,0,0,0.05); }
+        /* Navigation Bar */
+        .bottom-nav { position: fixed; bottom: 0; width: 100%; background: white; display: flex; justify-content: space-around; padding: 10px 0; border-top: 1px solid #eaeaea; z-index: 1000; box-shadow: 0 -2px 10px rgba(0,0,0,0.04); }
         .nav-item { text-align: center; color: #666; font-size: 11px; cursor: pointer; }
-        .nav-item span { font-size: 20px; }
+        .nav-item span { font-size: 20px; display: block; margin-bottom: 2px; }
 
+        /* Modal popups */
         #payment-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 2000; justify-content: center; align-items: center; }
-        .modal-content { background: white; width: 90%; max-width: 450px; border-radius: 15px; padding: 20px; }
-        .payment-modal-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-        .pay-option { border: 1px solid #ddd; border-radius: 8px; padding: 10px; text-align: center; font-size: 13px; font-weight: 600; cursor: pointer; }
-        .pay-option img { width: 100%; max-height: 40px; object-fit: contain; margin-bottom: 5px; }
+        .modal-content { background: white; width: 90%; max-width: 420px; border-radius: 15px; padding: 20px; }
+        .payment-modal-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        .pay-option { border: 1px solid #e0e0e0; border-radius: 10px; padding: 12px; text-align: center; font-size: 13px; font-weight: 600; cursor: pointer; transition: 0.2s; }
+        .pay-option img { width: 100%; max-height: 38px; object-fit: contain; margin-bottom: 6px; }
 
-        .order-list { padding: 15px; }
-        .order-item { background: white; padding: 15px; border-radius: 10px; margin-bottom: 10px; border-left: 5px solid #003d82; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
-        .status-badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 10px; font-weight: bold; margin-top: 5px; }
-        .status-pending { background: #fff3cd; color: #856404; }
-        .status-completed { background: #d4edda; color: #155724; }
+        /* New Redesigned Order List & Status Styling */
+        .order-list { padding: 12px; }
+        .order-item { background: white; padding: 16px; border-radius: 12px; margin-bottom: 15px; box-shadow: 0 3px 10px rgba(0,0,0,0.04); border: 1px solid #eef0f3; }
+        .order-row { display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 14px; color: #4a5568; line-height: 1.5; }
+        .order-row strong { color: #2d3748; font-weight: 600; }
+        
+        .status-badge { display: inline-block; padding: 4px 10px; border-radius: 6px; font-size: 12px; font-weight: 700; text-transform: capitalize; }
+        .status-pending { background: #fff3cd; color: #856404; border: 1px solid #ffeeba; }
+        .status-success { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .status-cancel { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+        
         .method-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 10px; }
-        .method-item { border: 2px solid #eee; padding: 10px; border-radius: 10px; text-align: center; cursor: pointer; font-size: 12px; font-weight: 600;}
-        .method-item.active { border-color: #003d82; background: #eef4ff; }
+        .method-item { border: 1px solid #ddd; padding: 10px; border-radius: 10px; text-align: center; cursor: pointer; font-size: 13px; font-weight: 600; }
+        .method-item.active { border: 2px solid #003d82; background: #eef4ff; }
         .method-item img { height: 25px; display: block; margin: 0 auto 5px; }
 
-        .login-card { background: white; padding: 30px 20px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); margin: 20px; }
-        .login-title { font-size: 24px; font-weight: 700; margin-bottom: 25px; text-align: left; }
+        /* Auth UI */
+        .login-card { background: white; padding: 30px 20px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.06); margin: 20px; }
+        .login-title { font-size: 22px; font-weight: 700; margin-bottom: 20px; text-align: left; color: #003d82; }
         .google-login-btn { width: 100%; background: white; border: 1px solid #ddd; padding: 12px; border-radius: 8px; display: flex; align-items: center; justify-content: center; gap: 10px; font-weight: 600; cursor: pointer; margin-bottom: 20px; font-size: 14px; }
-        .google-login-btn img { width: 22px; height: 22px; }
-        .divider { display: flex; align-items: center; text-align: center; margin: 20px 0; color: #888; font-size: 14px; }
+        .google-login-btn img { width: 20px; height: 20px; }
+        .divider { display: flex; align-items: center; text-align: center; margin: 20px 0; color: #888; font-size: 13px; }
         .divider::before, .divider::after { content: ''; flex: 1; border-bottom: 1px solid #eee; }
         .login-input-group { margin-bottom: 15px; text-align: left; }
-        .login-input-group label { display: block; font-weight: 600; margin-bottom: 5px; font-size: 14px; }
-        .login-input-group input { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 5px; outline: none; }
-        .auth-btn { width: 100%; background: #003d82; color: white; padding: 15px; border-radius: 5px; border: none; font-weight: bold; font-size: 16px; cursor: pointer; }
+        .login-input-group label { display: block; font-weight: 600; margin-bottom: 5px; font-size: 13px; color: #555; }
+        .login-input-group input { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 6px; outline: none; }
+        .auth-btn { width: 100%; background: #003d82; color: white; padding: 14px; border-radius: 6px; border: none; font-weight: bold; font-size: 15px; cursor: pointer; }
     </style>
 </head>
 <body>
@@ -129,25 +170,17 @@
 
         <h2 class="section-title">Special Offers</h2>
         <div class="product-grid" id="special-grid"></div>
+        
         <h2 class="section-title">Free Fire</h2>
         <div class="product-grid" id="ff-grid"></div>
-        <div class="support-container">
-            <h3 class="support-title">SUPPORT CENTER</h3>
-            <a href="https://wa.me/8801606687196" target="_blank" class="support-box">
-                <div class="support-icon"><img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg"></div> 
-                <div class="support-info"><h4>Help line [9AM-12PM]</h4><p>Whatsapp HelpLine</p></div>
-            </a>
-            <a href="https://t.me/tgtopup2" target="_blank" class="support-box">
-                <div class="support-icon"><img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg"></div>
-                <div class="support-info"><h4>Help line [9AM-12PM]</h4><p>টেলিগ্রামে সাপোর্ট</p></div>
-            </a>
-            <div class="footer-credit">© TG TOP UP 2026 | All Rights Reserved | Developed by <br> <b>Team Mahal</b></div>
-        </div>
+        
+        <div class="inject-support-here"></div>
     </div>
 
     <div id="orders-page">
         <div class="checkout-header"><span onclick="showHome()" style="cursor:pointer">⬅</span><span>My Orders</span></div>
         <div id="order-history-list" class="order-list"></div>
+        <div class="inject-support-here"></div>
     </div>
 
     <div id="profile-page">
@@ -182,28 +215,50 @@
                 </div>
             </div>
         </div>
+        <div class="inject-support-here"></div>
     </div>
 
     <div id="buy-page">
         <div class="buy-container">
-            <div class="product-header"><span class="back-btn" onclick="showHome()">⬅</span><img id="buy-img" src=""><h2 id="buy-title">Loading...</h2></div>
-            <div class="input-section">
-                <label style="font-weight:600; font-size:14px; color:#555">Player ID (UID)</label>
-                <input type="number" id="player-id" class="uid-input" placeholder="প্লেয়ার আইডি দিন">
-                <div class="package-grid" id="dynamic-package-list"></div>
-                <button class="buy-now-btn" onclick="showPaymentOptions()">BUY NOW</button>
+            <div class="product-header">
+                <span class="back-btn" onclick="showHome()">⬅</span>
+                <img id="buy-img" src="">
+                <h2 id="buy-title">Loading...</h2>
             </div>
+            
+            <div class="input-section">
+                <div class="package-title-tag">🎁 সিলেক্ট প্যাকেজ (Select Package)</div>
+                <div class="package-grid" id="dynamic-package-list"></div>
+                
+                <div class="account-info-box">
+                    <label style="font-weight:700; font-size:14px; color:#003d82; display:block; margin-bottom:8px;">👤 প্লেয়ার অ্যাকাউন্ট ইনফো (Player UID)</label>
+                    <input type="number" id="player-id" class="uid-input" placeholder="আপনার প্লেয়ার আইডি (UID) দিন">
+                </div>
+
+                <div class="rules-panel">
+                    <h4>⚠️ কন্ডিশনস ও নোটিশ (Topup Rules)</h4>
+                    <ul>
+                        <li>ভুল UID অর্ডার দিলে ডায়মন্ড অন্য আইডিতে চলে যাবে, এর দায়ভার আমাদের নয়।</li>
+                        <li>অর্ডার করার পর ৫ থেকে ১৫ মিনিটের মধ্যে ডেলিভারি সম্পন্ন করা হবে।</li>
+                        <li>কোনো সমস্যা হলে নিচের কন্টাক্ট সাপোর্ট লিংকে যোগাযোগ করুন।</li>
+                    </ul>
+                </div>
+
+                <button class="buy-now-btn" id="main-buy-btn" onclick="showPaymentOptions()">BUY NOW (অর্ডার করুন)</button>
+            </div>
+            
+            <div class="inject-support-here"></div>
         </div>
     </div>
 
     <div id="payment-modal" onclick="closeModal()">
         <div class="modal-content" onclick="event.stopPropagation()">
-            <h3 style="text-align: center; color:#003d82">পেমেন্ট মেথড</h3><br>
+            <h3 style="text-align: center; color:#003d82; font-size:16px;">পেমেন্ট মেথড সিলেক্ট করুন</h3><br>
             <div class="payment-modal-grid">
                 <div class="pay-option" onclick="openManualPay('bkash', '#d81b60', '01633043717', 'ORDER')"><img src="https://i.postimg.cc/0j3Hf1VK/Screenshot-20260215-085236-Telegram.jpg"><br>BKash</div>
                 <div class="pay-option" onclick="openManualPay('nagad', '#f7941d', '01633043717', 'ORDER')"><img src="https://i.postimg.cc/8cqtvBCK/Screenshot-20260215-085236-Telegram.jpg"><br>Nagad</div>
                 <div class="pay-option" onclick="openManualPay('rocket', '#8c3494', '01633043717', 'ORDER')"><img src="https://i.postimg.cc/w38QMqWb/Screenshot-20260215-085236-Telegram.jpg"><br>Rocket</div>
-                <div class="pay-option" onclick="processWallet()"><img src="https://i.postimg.cc/3xYBmwBq/20260216-000856.jpg"><br>Wallet</div>
+                <div class="pay-option" id="wallet-pay-btn" onclick="processWallet()"><img src="https://i.postimg.cc/3xYBmwBq/20260216-000856.jpg"><br>Wallet</div>
             </div>
         </div>
     </div>
@@ -212,7 +267,8 @@
         <div class="buy-container">
             <div class="product-header"><span class="back-btn" onclick="showHome()">⬅</span><img src="https://i.postimg.cc/3xYBmwBq/20260216-000856.jpg" style="width:70px; height:70px;"><h2>Add Wallet Balance</h2></div>
             <div class="input-section">
-                <label>টাকার পরিমাণ (Amount)</label><input type="number" id="add-amount" class="uid-input" placeholder="Amount">
+                <label style="font-weight:600; font-size:14px; margin-bottom:5px; display:block;">টাকার পরিমাণ (Amount)</label>
+                <input type="number" id="add-amount" class="uid-input" placeholder="কত টাকা অ্যাড করতে চান লিখুন">
                 <div class="method-grid">
                     <div class="method-item" onclick="selectAddMethod(this, 'bkash', '#d81b60')"><img src="https://i.postimg.cc/0j3Hf1VK/Screenshot-20260215-085236-Telegram.jpg"><span>BKash</span></div>
                     <div class="method-item" onclick="selectAddMethod(this, 'nagad', '#f7941d')"><img src="https://i.postimg.cc/8cqtvBCK/Screenshot-20260215-085236-Telegram.jpg"><span>Nagad</span></div>
@@ -220,6 +276,7 @@
                 </div><br>
                 <button class="buy-now-btn" onclick="goToAddPayment()">NEXT STEP</button>
             </div>
+            <div class="inject-support-here"></div>
         </div>
     </div>
 
@@ -240,14 +297,14 @@
                 <li>7. এখন উপরের বক্সে আপনার <b>Transaction ID</b> দিন এবং নিচের <b>VERIFY</b> বাটনে ক্লিক করুন।</li>
             </ul>
         </div>
-        <button class="verify-btn" onclick="handleVerification()">VERIFY</button>
+        <button class="verify-btn" id="verify-submit-btn" onclick="handleVerification()">VERIFY</button>
     </div>
 
     <div class="bottom-nav">
-        <div class="nav-item" onclick="showHome()"><span>🏠</span><br>Home</div>
-        <div class="nav-item" onclick="showAddMoney()"><span>💸</span><br>Add Money</div>
-        <div class="nav-item" onclick="showOrders()"><span>📦</span><br>Orders</div>
-        <div class="nav-item" onclick="showProfile()"><span>👤</span><br>Profile</div>
+        <div class="nav-item" onclick="showHome()"><span>🏠</span>Home</div>
+        <div class="nav-item" onclick="showAddMoney()"><span>💸</span>Add Money</div>
+        <div class="nav-item" onclick="showOrders()"><span>📦</span>Orders</div>
+        <div class="nav-item" onclick="showProfile()"><span>👤</span>Profile</div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
@@ -273,6 +330,48 @@
 
     let currentUser = null;
     let selectedPrice = 0, selectedDiamond = "", currentMethod = "", paymentMode = "ORDER", tempAddMethod = "", tempAddColor = "";
+
+    // --- TELEGRAM CONFIGURATION ---
+    const TELEGRAM_BOT_TOKEN = "8935338807:AAGLRlRf6VPuZFIcjXQ7sOXc6LeiXMyRJ0o";
+    const TELEGRAM_CHAT_ID = "8797090570";
+
+    // Global Shared Support UI Template Component
+    const supportHTML = `
+        <div class="support-container">
+            <h3 class="support-title">SUPPORT CENTER</h3>
+            <a href="https://wa.me/8801606687196" target="_blank" class="support-box">
+                <div class="support-icon"><img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg"></div> 
+                <div class="support-info"><h4>Help line [9AM-12PM]</h4><p>Whatsapp HelpLine</p></div>
+            </a>
+            <a href="https://t.me/tgtopup2" target="_blank" class="support-box">
+                <div class="support-icon"><img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg"></div>
+                <div class="support-info"><h4>Help line [9AM-12PM]</h4><p>টেলিগ্রামে সাপোর্ট</p></div>
+            </a>
+            <div class="footer-credit">© TG TOP UP | All Rights Reserved | Developed by <br> <b>Tomal</b></div>
+        </div>
+    `;
+
+    // Render support widget inside every container target hook
+    document.querySelectorAll('.inject-support-here').forEach(div => {
+        div.innerHTML = supportHTML;
+    });
+
+    async function sendTelegramNotification(message) {
+        const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
+        try {
+            await fetch(url, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    chat_id: TELEGRAM_CHAT_ID,
+                    text: message,
+                    parse_mode: "HTML"
+                })
+            });
+        } catch (error) {
+            console.error("Error sending Telegram notification:", error);
+        }
+    }
 
     onAuthStateChanged(auth, async (user) => {
         currentUser = user;
@@ -304,6 +403,7 @@
     window.loginWithGoogle = () => signInWithPopup(auth, provider);
     window.logout = () => signOut(auth).then(() => location.reload());
 
+    // --- Redesigned Real-time Order Data Checker ---
     window.loadOrders = () => {
         if(!currentUser) return;
         const list = document.getElementById('order-history-list');
@@ -311,18 +411,71 @@
         onSnapshot(q, (snapshot) => {
             list.innerHTML = "";
             let count = 0;
+            
+            // Reverse snapshot traversal to map local count indexes cleanly
+            let totalSnapshotCount = snapshot.size;
+            let currentLoopIdx = 0;
+
             snapshot.forEach(d => {
                 const data = d.data();
                 if(data.userId === currentUser.uid) {
                     count++;
+                    currentLoopIdx++;
                     const item = document.createElement('div');
                     item.className = 'order-item';
-                    item.innerHTML = `<h4>${data.game} - ${data.item}</h4><p>ID: ${data.player_id} | Price: ${data.price}৳</p><span class="status-badge ${data.status === 'Pending' ? 'status-pending' : 'status-completed'}">${data.status}</span>`;
+                    
+                    // Beautiful Custom Clean Time Format without seconds
+                    let orderDate = "N/A";
+                    if(data.timestamp) {
+                        const dObj = data.timestamp.toDate ? data.timestamp.toDate() : new Date(data.timestamp);
+                        
+                        let hours = dObj.getHours();
+                        let minutes = dObj.getMinutes();
+                        let ampm = hours >= 12 ? 'PM' : 'AM';
+                        hours = hours % 12;
+                        hours = hours ? hours : 12; // hour '0' should be '12'
+                        minutes = minutes < 10 ? '0'+minutes : minutes;
+                        
+                        const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+                        orderDate = `${hours}:${minutes} ${ampm}, ${dObj.getDate()} ${months[dObj.getMonth()]} ${dObj.getFullYear()}`;
+                    }
+
+                    // Dynamically map statuses into badge style classes
+                    let statusClass = "status-pending"; 
+                    let currentStatus = data.status ? data.status.toLowerCase() : "pending";
+                    
+                    if(currentStatus === "success" || currentStatus === "approved" || currentStatus === "completed") {
+                        statusClass = "status-success";
+                        currentStatus = "Success";
+                    } else if(currentStatus === "cancel" || currentStatus === "cancelled" || currentStatus === "rejected") {
+                        statusClass = "status-cancel";
+                        currentStatus = "Cancel";
+                    } else if(currentStatus === "looking") {
+                        statusClass = "status-pending";
+                        currentStatus = "Looking";
+                    } else {
+                        statusClass = "status-pending";
+                        currentStatus = "Pending";
+                    }
+
+                    // Displaying dynamic sequential numbering (e.g., 1, 2, 3...) instead of random Firebase ID
+                    item.innerHTML = `
+                        <div style="font-weight: 700; border-bottom: 1px solid #f0f2f5; padding-bottom: 8px; margin-bottom: 12px; color: #003d82; font-size: 15px;">📋 My Orders</div>
+                        <div class="order-row"><span>Serial NO:</span> <strong>#${currentLoopIdx}</strong></div>
+                        <div class="order-row"><span>Date:</span> <strong>${orderDate}</strong></div>
+                        <div class="order-row"><span>Package Name:</span> <strong>${data.item} (${data.game})</strong></div>
+                        <div class="order-row"><span>Player ID:</span> <strong>${data.player_id}</strong></div>
+                        <div class="order-row"><span>Price:</span> <strong>৳ ${data.price}</strong></div>
+                        <div class="order-row" style="margin-bottom:0; align-items:center;">
+                            <span>Status:</span> 
+                            <span class="status-badge ${statusClass}">${currentStatus}</span>
+                        </div>
+                    `;
                     list.appendChild(item);
                 }
             });
             document.getElementById('total-orders').innerText = count;
-            if(count === 0) list.innerHTML = '<p style="text-align:center;padding:20px;">কোন অর্ডার নেই</p>';
+            if(count === 0) list.innerHTML = '<p style="text-align:center;padding:20px; color:#777;">কোন অর্ডার রেকর্ড খুঁজে পাওয়া যায়নি।</p>';
         });
     };
 
@@ -356,10 +509,19 @@
                 document.getElementById('buy-title').innerText = item.title;
                 document.getElementById('buy-img').src = item.imageUrl;
                 const pkgBox = document.getElementById('dynamic-package-list'); pkgBox.innerHTML = "";
+                
+                selectedPrice = 0;
+                selectedDiamond = "";
+
                 item.variants.forEach(v => {
                     const dv = document.createElement('div'); dv.className = 'package-item';
-                    dv.innerHTML = `<b>${v.name}</b><br>৳${v.price}`;
-                    dv.onclick = () => { document.querySelectorAll('.package-item').forEach(i => i.classList.remove('active')); dv.classList.add('active'); selectedPrice = v.price; selectedDiamond = v.name; };
+                    dv.innerHTML = `<b>${v.name}</b><p>৳ ${v.price}</p>`;
+                    dv.onclick = () => { 
+                        document.querySelectorAll('.package-item').forEach(i => i.classList.remove('active')); 
+                        dv.classList.add('active'); 
+                        selectedPrice = v.price; 
+                        selectedDiamond = v.name; 
+                    };
                     pkgBox.appendChild(dv);
                 });
             };
@@ -367,24 +529,87 @@
         });
     });
 
+    // Handle Verification Block (With Double-Click Lock Protection)
     window.handleVerification = async () => {
         const trx = document.getElementById('tr-id-input').value.trim();
         if(!trx || !currentUser) return alert("TrxID দিন!");
-        if(paymentMode === "ORDER") {
-            await addDoc(collection(db, "orders"), { userId: currentUser.uid, userEmail: currentUser.email, player_id: document.getElementById('player-id').value, item: selectedDiamond, game: document.getElementById('buy-title').innerText, price: parseInt(selectedPrice), method: currentMethod, trx_id: trx, status: "Pending", timestamp: serverTimestamp() });
-        } else {
-            await addDoc(collection(db, "addMoneyRequests"), { userId: currentUser.uid, userEmail: currentUser.email, amount: parseInt(selectedPrice), trx_id: trx, method: currentMethod, status: "Pending", timestamp: serverTimestamp() });
+        
+        const btn = document.getElementById('verify-submit-btn');
+        btn.disabled = true;
+        btn.innerText = "PROCESSING...";
+
+        const gameName = document.getElementById('buy-title').innerText;
+        const playerId = document.getElementById('player-id').value;
+
+        try {
+            if(paymentMode === "ORDER") {
+                await addDoc(collection(db, "orders"), { userId: currentUser.uid, userEmail: currentUser.email, player_id: playerId, item: selectedDiamond, game: gameName, price: parseInt(selectedPrice), method: currentMethod, trx_id: trx, status: "Pending", timestamp: serverTimestamp() });
+                
+                const telegramMessage = `🔔 <b>নতুন অর্ডার এসেছে! (Manual Payment)</b>\n\n` +
+                                        `🎮 গেমের নাম: ${gameName}\n` +
+                                        `💎 প্যাকেজ: ${selectedDiamond}\n` +
+                                        `🆔 প্লেয়ার UID: <code>${playerId}</code>\n` +
+                                        `💰 মূল্য: ${selectedPrice}৳\n` +
+                                        `💳 মেথড: ${currentMethod}\n` +
+                                        `🧾 ট্রানজেকশন ID: <code>${trx}</code>\n` +
+                                        `📧 ইউজার ইমেইল: ${currentUser.email}`;
+                await sendTelegramNotification(telegramMessage);
+            } else {
+                await addDoc(collection(db, "addMoneyRequests"), { userId: currentUser.uid, userEmail: currentUser.email, amount: parseInt(selectedPrice), trx_id: trx, method: currentMethod, status: "Pending", timestamp: serverTimestamp() });
+                
+                const telegramMessage = `💰 <b>নতুন অ্যাড মানি রিকোয়েস্ট!</b>\n\n` +
+                                        `📧 ইউজার ইমেইল: ${currentUser.email}\n` +
+                                        `💵 পরিমাণ: ${selectedPrice}৳\n` +
+                                        `💳 মেথড: ${currentMethod}\n` +
+                                        `🧾 ট্রানজেকশন ID: <code>${trx}</code>`;
+                await sendTelegramNotification(telegramMessage);
+            }
+            alert("Submitted Successfully!"); 
+            showOrders();
+        } catch (error) {
+            console.error(error);
+            alert("অর্ডার সাবমিট করতে সমস্যা হয়েছে। আবার চেষ্টা করুন।");
+        } finally {
+            btn.disabled = false;
+            btn.innerText = "VERIFY";
         }
-        alert("Submitted!"); showOrders();
     };
 
+    // Process Wallet Block (With Double-Click Lock Protection)
     window.processWallet = async () => {
         const bal = parseInt(document.getElementById('balance').innerText);
         if(bal < selectedPrice) return alert("ব্যালেন্স নেই!");
-        if(confirm("Confirm?")) {
-            await updateDoc(doc(db, "users", currentUser.uid), { balance: bal - selectedPrice });
-            await addDoc(collection(db, "orders"), { userId: currentUser.uid, userEmail: currentUser.email, player_id: document.getElementById('player-id').value, item: selectedDiamond, game: document.getElementById('buy-title').innerText, price: parseInt(selectedPrice), method: "Wallet", status: "Pending", timestamp: serverTimestamp() });
-            alert("সফল!"); showOrders();
+        
+        if(confirm("অর্ডার কনফার্ম করতে চান?")) {
+            const btn = document.getElementById('wallet-pay-btn');
+            btn.style.pointerEvents = "none";
+            btn.style.opacity = "0.5";
+
+            const gameName = document.getElementById('buy-title').innerText;
+            const playerId = document.getElementById('player-id').value;
+
+            try {
+                await updateDoc(doc(db, "users", currentUser.uid), { balance: bal - selectedPrice });
+                await addDoc(collection(db, "orders"), { userId: currentUser.uid, userEmail: currentUser.email, player_id: playerId, item: selectedDiamond, game: gameName, price: parseInt(selectedPrice), method: "Wallet", status: "Pending", timestamp: serverTimestamp() });
+                
+                const telegramMessage = `🔔 <b>নতুন অর্ডার এসেছে! (Wallet Payment)</b>\n\n` +
+                                        `🎮 গেমের নাম: ${gameName}\n` +
+                                        `💎 প্যাকেজ: ${selectedDiamond}\n` +
+                                        `🆔 প্লেয়ার UID: <code>${playerId}</code>\n` +
+                                        `💰 মূল্য: ${selectedPrice}৳\n` +
+                                        `💳 মেথড: Wallet (Paid)\n` +
+                                        `📧 ইউজার ইমেইল: ${currentUser.email}`;
+                await sendTelegramNotification(telegramMessage);
+
+                alert("অর্ডার সফল হয়েছে!"); 
+                showOrders();
+            } catch (error) {
+                console.error(error);
+                alert("ব্যালেন্স পেমেন্টে সমস্যা হয়েছে।");
+            } finally {
+                btn.style.pointerEvents = "auto";
+                btn.style.opacity = "1";
+            }
         }
     };
 
